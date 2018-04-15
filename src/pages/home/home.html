@@ -9,10 +9,12 @@
 <ion-content padding>
   
   <div>
-  	<img src="https://secure.img1-fg.wfcdn.com/lf/49/hash/36175/36706786/1/teacup-labrador-puppy-statue.jpg" 
-  	(click)="tapEvent($event)" #imgCaptured>
+  	<img src="../../assets/imgs/puppy.jpg" 
+  	(click)="getPixel($event)" (pan)="getPixel($event)" #imgCaptured>
 
   	<canvas #myCanvas [hidden]="true"></canvas>
+
+  	<div class="img-magnifier-glass" #magnifyGlass></div>
   </div>
 
   <ion-card (pan)="tapEvent($event)">
