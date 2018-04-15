@@ -38,8 +38,9 @@ export class HomePage {
     //console.log("n_match",n_match);
   	//this.initCanvas();
   	//this.initGlass();
-    this.rgba = {r:255,g:255,b:255,a:255};
+    this.rgba = {r:251,g:164,b:35,a:255};
     this.rgb2hex();
+    //this.saveColor();
     
   }
 

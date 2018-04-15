@@ -16,14 +16,35 @@
 <ion-content padding>
 
 <ion-list>
-	<ion-item *ngFor="let color of colorArray">
-    <ion-thumbnail item-start [ngStyle]="{'background-color': 'rgb('+color.rgba.r+','+color.rgba.g+','+color.rgba.b+')'}">
+	<ion-item-sliding *ngFor="let color of colorArray">
+    <ion-item>
+      <ion-thumbnail item-start [ngStyle]="{'background-color': 'rgb('+color.rgba.r+','+color.rgba.g+','+color.rgba.b+')'}">
     </ion-thumbnail>
-    <!-- <h2>Red</h2> -->
-    <p>R: {{color.rgba.r}}, G: {{color.rgba.g}}, B: {{color.rgba.b}}</p>
-    <p>Hex: {{color.hex}}</p>
-    <button ion-button clear item-end (click)="removeColor(color)">Remove</button>
-  </ion-item>
+      	<p>R: {{color.rgba.r}}, G: {{color.rgba.g}}, B: {{color.rgba.b}}</p>
+    	<p>Hex: {{color.hex}}</p>
+
+    	<div item-end style="height: 61%;width: 33%;">
+    		<div class="compStack" [ngStyle]="{'background-color': 'rgb('+color.compliment.one.r+','+color.compliment.one.g+','+color.compliment.one.b+')'}"></div>
+
+    		<div class="compStack" [ngStyle]="{'background-color': 'rgb('+color.compliment.two.r+','+color.compliment.two.g+','+color.compliment.two.b+')'}"></div>
+
+    		<div class="compStack" [ngStyle]="{'background-color': 'rgb('+color.compliment.three.r+','+color.compliment.three.g+','+color.compliment.three.b+')'}"></div>
+
+    		<div class="compStack" [ngStyle]="{'background-color': 'rgb('+color.compliment.four.r+','+color.compliment.four.g+','+color.compliment.four.b+')'}"></div>
+    	</div>
+    </ion-item>
+    <ion-item-options side="right">
+     <button ion-button color="primary" icon-start (click)="copyColor(color)">
+        <ion-icon name="copy"></ion-icon>
+        Copy
+      </button>
+    
+      <button ion-button color="danger" icon-start (click)="removeColor(color)">
+        <ion-icon name="trash"></ion-icon>
+        Remove
+      </button>
+    </ion-item-options>
+  </ion-item-sliding>
 
 </ion-list>
 

@@ -14,8 +14,9 @@
 <ion-content padding>
   
   <div id="imageDiv">
-  	<!-- <img [src]="base64Image" *ngIf="base64Image" (drag)="onTouch($event)" #imgCaptured> -->
-    <img src="../../assets/imgs/puppy.jpg" (touchstart)="onTouch($event)" (touchmove)="onTouch($event)" #imgCaptured>
+  	<img [src]="base64Image" *ngIf="base64Image" (touchstart)="onTouch($event)" (touchmove)="onTouch($event)" #imgCaptured>
+    <p *ngIf="!(base64Image)" style="text-align: center">Take an Image to get started!</p>
+    <!-- <img src="../../assets/imgs/puppy.jpg" (touchstart)="onTouch($event)" (touchmove)="onTouch($event)" #imgCaptured> -->
 
   	<canvas #myCanvas [hidden]="true"></canvas>
 
@@ -26,19 +27,23 @@
 
     </div>
   </div>
-
-  <ion-item *ngIf="rgba">
+  <br>
+  <ion-item *ngIf="base64Image">
     <ion-thumbnail item-start [ngStyle]="{'background-color': 'rgb('+rgba.r+','+rgba.g+','+rgba.b+')'}">
     </ion-thumbnail>
     <!-- <h2>Red</h2> -->
     <p>R: {{rgba.r}}, G: {{rgba.g}}, B{{rgba.b}}</p>
     <p>Hex: {{hexval}}</p>
-    <button ion-button clear item-end (click)="saveColor()">Save</button>
+    <button ion-button item-end (click)="saveColor()">Save</button>
   </ion-item>
 
-  <button ion-button (click)="getPicture()">Take Image</button>
+  
 
 </ion-content>
+
+<ion-footer>
+  <button ion-button full (click)="getPicture()">Take Image</button>
+</ion-footer>
 
 
 
