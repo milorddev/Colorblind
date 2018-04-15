@@ -2,6 +2,7 @@ page-home {
 
 	.img-magnifier-glass {
 	  position: absolute;
+	  display:none;
 	  border: 3px solid #000;
 	  border-radius: 50%;
 	  cursor: none;
@@ -9,4 +10,15 @@ page-home {
 	  width: 100px;
 	  height: 100px;
 	}
+
+	.crossBox{
+		position: relative;
+		margin: 42px;
+		height: 10px;
+		width: 10px;
+		border: 1px solid black;
+
+	}
+
+	
 }

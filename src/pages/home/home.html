@@ -1,27 +1,42 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Color Selector
     </ion-title>
+      <ion-buttons end>
+        <button ion-button icon-only color="royal" (click)="goToSavedColors()">
+          <ion-icon name="bookmark"></ion-icon>
+        </button>
+      </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   
-  <div>
-  	<img src="../../assets/imgs/puppy.jpg" 
-  	(click)="getPixel($event)" (pan)="getPixel($event)" #imgCaptured>
+  <div id="imageDiv">
+  	<!-- <img [src]="base64Image" *ngIf="base64Image" (drag)="onTouch($event)" #imgCaptured> -->
+    <img src="../../assets/imgs/puppy.jpg" (touchstart)="onTouch($event)" (touchmove)="onTouch($event)" #imgCaptured>
 
   	<canvas #myCanvas [hidden]="true"></canvas>
 
-  	<div class="img-magnifier-glass" #magnifyGlass></div>
+  	<div class="img-magnifier-glass" #magnifyGlass>
+    
+    <div class="crossBox"></div>
+
+
+    </div>
   </div>
 
-  <ion-card (pan)="tapEvent($event)">
-  <ion-item>
-    Tapped: {{pan}} times
+  <ion-item *ngIf="rgba">
+    <ion-thumbnail item-start [ngStyle]="{'background-color': 'rgb('+rgba.r+','+rgba.g+','+rgba.b+')'}">
+    </ion-thumbnail>
+    <!-- <h2>Red</h2> -->
+    <p>R: {{rgba.r}}, G: {{rgba.g}}, B{{rgba.b}}</p>
+    <p>Hex: {{hexval}}</p>
+    <button ion-button clear item-end (click)="saveColor()">Save</button>
   </ion-item>
-</ion-card>
+
+  <button ion-button (click)="getPicture()">Take Image</button>
 
 </ion-content>
 

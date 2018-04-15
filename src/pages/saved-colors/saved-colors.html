@@ -1,0 +1,31 @@
+<!--
+  Generated template for the SavedColorsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Saved Colors</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+<ion-list>
+	<ion-item *ngFor="let color of colorArray">
+    <ion-thumbnail item-start [ngStyle]="{'background-color': 'rgb('+color.rgba.r+','+color.rgba.g+','+color.rgba.b+')'}">
+    </ion-thumbnail>
+    <!-- <h2>Red</h2> -->
+    <p>R: {{color.rgba.r}}, G: {{color.rgba.g}}, B: {{color.rgba.b}}</p>
+    <p>Hex: {{color.hex}}</p>
+    <button ion-button clear item-end (click)="removeColor(color)">Remove</button>
+  </ion-item>
+
+</ion-list>
+
+
+</ion-content>
