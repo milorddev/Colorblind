@@ -7,8 +7,25 @@
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  
+  <div>
+  	<img src="https://secure.img1-fg.wfcdn.com/lf/49/hash/36175/36706786/1/teacup-labrador-puppy-statue.jpg" 
+  	(click)="tapEvent($event)" #imgCaptured>
+
+  	<canvas #myCanvas [hidden]="true"></canvas>
+  </div>
+
+  <ion-card (pan)="tapEvent($event)">
+  <ion-item>
+    Tapped: {{pan}} times
+  </ion-item>
+</ion-card>
+
 </ion-content>
+
+
+
+
+
+
+
