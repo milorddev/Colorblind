@@ -16,10 +16,11 @@
 <ion-content padding>
 
 <ion-list>
-	<ion-item-sliding *ngFor="let color of colorArray">
+	<ion-item-sliding *ngFor="let color of colorArray; let i = index">
     <ion-item>
       <ion-thumbnail item-start [ngStyle]="{'background-color': 'rgb('+color.rgba.r+','+color.rgba.g+','+color.rgba.b+')'}">
     </ion-thumbnail>
+        <p>{{color.name}}</p>
       	<p>R: {{color.rgba.r}}, G: {{color.rgba.g}}, B: {{color.rgba.b}}</p>
     	<p>Hex: {{color.hex}}</p>
 
@@ -39,7 +40,7 @@
         Copy
       </button>
     
-      <button ion-button color="danger" icon-start (click)="removeColor(color)">
+      <button ion-button color="danger" icon-start (click)="removeColor(i)">
         <ion-icon name="trash"></ion-icon>
         Remove
       </button>

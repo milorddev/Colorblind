@@ -39,7 +39,10 @@ export class SavedColorsPage {
 
   copyColor(color){
   	var niceString = '';
-  	if(color.hex){
+  	if(color.hex && color.name){
+  		niceString = 'RGB: (' + color.rgba.r + ',' + color.rgba.g + ',' + color.rgba.b + '), HEX: ' + color.hex + ', NAME: ' + color.name;
+  	}
+  	else if(color.hex){
   		niceString = 'RGB: (' + color.rgba.r + ',' + color.rgba.g + ',' + color.rgba.b + '), HEX: ' + color.hex;
   	}
   	else{
