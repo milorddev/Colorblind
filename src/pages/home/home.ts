@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Storage } from '@ionic/storage';
@@ -34,7 +34,7 @@ export class HomePage {
   colorName:any;
 
   constructor(public navCtrl: NavController, public camera: Camera,
-   public storage: Storage, public toastCtrl: ToastController) {
+   public storage: Storage, public toastCtrl: ToastController, public alertCtrl: AlertController) {
   	
   }
 
@@ -45,7 +45,7 @@ export class HomePage {
   	//this.initGlass();
     this.rgba = {r:251,g:164,b:35,a:255};
     this.rgb2hex();
-    this.base64Image = true;
+    // this.base64Image = true;   //disable this for device version
     //this.saveColor();
     
   }
@@ -133,19 +133,43 @@ export class HomePage {
     var absx = event.touches[0].clientX;
     var absy = event.touches[0].clientY;
   	var relative = {
-  		x: absx - event.target.x -50,
-  		y: absy - event.target.y -50
+  		x: absx - event.target.x -48,
+  		y: absy - event.target.y -48
   	}
     console.log("absx",absx);
     console.log("absy",absy);
     console.log("relative",relative);
 
-  	var pixelData = this.canvas.getContext('2d').getImageData(relative.x, relative.y, 1, 1).data;
+    var pixArray = [];
+    for (var i = 0; i < 6; ++i) {
+      for (var j = 0; j < 6; ++j) {
+        pixArray.push(this.canvas.getContext('2d').getImageData(relative.x + i, 
+          relative.y + j, 1, 1).data);
+      }
+    }
+    //console.log("pixArray",pixArray);
+    var averaged = [];
+    var r = 0,g = 0,b = 0;
+    for(var ind in pixArray){
+      r += pixArray[ind][0];
+      g += pixArray[ind][1];
+      b += pixArray[ind][2];
+    }
+    //console.log("r",r);
+    //console.log("g",g);
+    //console.log("b",b);
+    r = Math.round(r/pixArray.length);
+    g = Math.round(g/pixArray.length);
+    b = Math.round(b/pixArray.length);
+
+  	//var pixelData = this.canvas.getContext('2d').getImageData(relative.x, relative.y, 1, 1).data;
     // this.canvas.getContext('2d').rect(relative.x, relative.y, 18, 18);
     // this.canvas.getContext('2d').fillStyle = "red";
     // this.canvas.getContext('2d').fill();
-  	console.log("pixelData",pixelData);
-  	this.rgba = {r:pixelData[0],g:pixelData[1],b:pixelData[2],a:pixelData[3]};
+  	//console.log("pixelData",pixelData);
+  	//this.rgba = {r:pixelData[0],g:pixelData[1],b:pixelData[2],a:pixelData[3]};
+    this.rgba = {r:r,g:g,b:b,a:255};
+    //console.log("this.rgba",this.rgba);
 
   	//var pos = getCursorPos(event,this.img);
   	var x = relative.x;//pos.x;
@@ -182,10 +206,7 @@ export class HomePage {
   }
 
 
-   getPicture(){
-    
-    console.log("getting picture");
-
+  pregetPicture(){
     const options: CameraOptions = {
       destinationType: this.camera.DestinationType.FILE_URI,
       encodingType: this.camera.EncodingType.JPEG,
@@ -196,8 +217,35 @@ export class HomePage {
       correctOrientation: true
     };
 
+
+    let alert = this.alertCtrl.create({
+      title: "Image Source",
+      message: "Where would you like your picture to be selected from?",
+      buttons: [
+        {
+          text: "Camera",
+          handler: () => {
+            options.sourceType = 1;
+            this.getPicture(options);
+          }
+        },
+
+        {
+          text: "Album",
+          handler: () => {
+            options.sourceType = 0;
+            this.getPicture(options);
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+
+   getPicture(options){
+    console.log("getting picture");
     this.camera.getPicture(options).then(imageData => {
-      
       this.base64Image = imageData;
     });
   }

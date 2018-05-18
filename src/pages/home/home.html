@@ -14,10 +14,12 @@
 <ion-content padding>
   
   <div id="imageDiv">
-  	<!-- <img [src]="base64Image" *ngIf="base64Image" (touchstart)="onTouch($event)" (touchmove)="onTouch($event)" #imgCaptured>
-    <p *ngIf="!(base64Image)" style="text-align: center">Take an Image to get started!</p> -->
+  	<img [src]="base64Image" *ngIf="base64Image" (touchstart)="onTouch($event)"  
+    (touchmove)="onTouch($event)" #imgCaptured>
+    <p *ngIf="!(base64Image)" style="text-align: center">Take an Image to get started!</p>
     
-    <img src="../../assets/imgs/puppy.jpg" (touchstart)="onTouch($event)" (touchmove)="onTouch($event)" #imgCaptured>
+    <!-- disable this for device version -->
+    <!-- <img src="../../assets/imgs/puppy.jpg" (touchstart)="onTouch($event)" (touchmove)="onTouch($event)" #imgCaptured>   -->
 
   	<canvas #myCanvas [hidden]="true"></canvas>
 
@@ -44,7 +46,7 @@
 </ion-content>
 
 <ion-footer>
-  <button ion-button full (click)="getPicture()">
+  <button ion-button full (click)="pregetPicture()">
   <ion-icon name="camera"></ion-icon></button>
 </ion-footer>
 
